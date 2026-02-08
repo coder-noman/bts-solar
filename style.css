@@ -1,5 +1,5 @@
 :root {
-    --primary-color: #1a6d38;
+    --primary-color: #4ecdc4;
     --secondary-color: #4caf50;
     --accent-color: #ffc107;
     --dark-bg: #121e27;
@@ -103,11 +103,11 @@ header {
 .info-card p {
     font-size: 1.8rem;
     font-weight: bold;
-    color: var(--secondary-color);
+    color: #4ecdc4;
 }
 
 .info-card.battery-info p {
-    color: var(--battery-color);
+    color: #4ecdc4;
 }
 
 .dashboard-grid {
@@ -123,10 +123,6 @@ header {
     padding: 20px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease;
-}
-
-.card:hover {
-    transform: translateY(-5px);
 }
 
 .card-header {
@@ -158,7 +154,7 @@ header {
 
 .icon-energy {
     background-color: rgba(76, 175, 80, 0.2);
-    color: var(--success-color);
+    color: #4ecdc4;
 }
 
 .icon-carbon {
