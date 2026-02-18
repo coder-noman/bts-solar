@@ -1,139 +1,191 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
+  <!-- viewport meta already present, good -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BTS Solar Power Dashboard</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+  <link rel="stylesheet" href="style.css">
+  <title>AdminSite - Solar Dashboard</title>
 </head>
-
-<body>
-  <div class="container">
-    <header>
-      <div class="logo-container">
-        <div class="logo"><i class="fas fa-solar-panel"></i></div>
-        <div class="title">
-          <h1>BTS Solar Power</h1>
-        </div>
+<body id="main_ho">
+  <section id="sidebar">
+    <div class="brand">
+      <img class="brand-img" src="./images/link3.jpg" alt="" />
+      <div class="brand2">
+        <a href="#"><span class="logo">Infini</span>BOX</a>
+        <h5><span class="logo-text">Innovated by <br /></span>Link3 Technologies LTD</h5>
       </div>
-      <div class="station-info">
-        <div class="info-card">
-          <h3>Total Capacity</h3>
-          <p>15 kW</p>
-        </div>
-        <div class="info-card battery-info">
-          <h3>Battery System</h3>
-          <p>48V LiFePO4</p>
-        </div>
+    </div>
+    <div class="side-menu">
+      <div class="last-update">
+        <p href="#" class="last-update-btn">Synced:</p>
+        <p class="last-update-time" id="lastUpdateTime"></p>
+        <p class="last-update-time" id="lastUpdateDate"></p>
       </div>
-      <div class="last-updated">
-        <p>Last Updated: <span id="last-updated">--:--:--</span></p>
+      <a href="./Factory/factory.html" class="active">Switch To Factory</a>
+    </div>
+    <div class="alert">
+      <a href="#" class="alert-btn-upgrade">Alert Box</a>
+      <div class="wrapper">
+        <ul id="alert-list" class="alert-list"></ul>
       </div>
-    </header>
-
-    <div class="dashboard-grid">
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title">Current Power Generation</div>
-          <div class="card-icon icon-power"><i class="fas fa-bolt"></i></div>
+    </div>
+    <div class="device">
+      <a href="#" class="device-btn-upgrade">Device Information</a>
+      <div class="device-wrapper">
+        <div class="device-wrapper-card">
+          <h5 class="device-label">LAN IP</h5>
+          <h5 class="device-value" id="device-lan">: Null</h5>
         </div>
-        <div class="card-value" id="current-power">12.4 kW</div>
-      </div>
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title">Today's Solar Energy</div>
-          <div class="card-icon icon-energy"><i class="fas fa-sun"></i></div>
+        <div class="device-wrapper-card">
+          <h5 class="device-label">GSM Operator</h5>
+          <h5 class="device-value" id="gsm-operator">: Null</h5>
         </div>
-        <div class="card-value" id="today-energy">84.2 kWh</div>
-      </div>
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title">Carbon Emission Reduction</div>
-          <div class="card-icon icon-carbon"><i class="fas fa-leaf"></i></div>
+        <div class="device-wrapper-card">
+          <h5 class="device-label">GSM Signal</h5>
+          <h5 class="device-value" id="gsm-signal">: Null</h5>
         </div>
-        <div class="card-value" id="carbon-reduction">1,265 kg</div>
+        <div class="device-wrapper-card">
+          <h5 class="device-label">Internal Battery</h5>
+          <h5 class="device-value" id="internal-battery">: Null</h5>
+        </div>
+        <div class="device-wrapper-card">
+          <h5 class="device-label">PSU Status 1</h5>
+          <h5 class="device-value" id="device-psu1">: Null</h5>
+        </div>
+        <div class="device-wrapper-card">
+          <h5 class="device-label">PSU Status 2</h5>
+          <h5 class="device-value" id="device-psu2">: Null</h5>
+        </div>
+        <div class="device-wrapper-card">
+          <h5 class="device-label">Data Path</h5>
+          <h5 class="device-value" id="data-source">: Null</h5>
+        </div>
+        <!-- duplicate alert list removed -->
       </div>
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title">Today's Revenue</div>
-          <div class="card-icon icon-price">
-            <i class="fas fa-money-bill-wave"></i>
+    </div>
+  </section>
+  <section id="content">
+    <nav>
+      <div class="menu-toggle" id="menuToggle">
+        <i class="fas fa-bars"></i>
+      </div>
+      <div class="breadcumb">
+        <h1 class="title">Dashboard: BTS Solar</h1>
+      </div>
+      <div class="profile-box">
+        <h3 class="profile-user"><span>User:</span> Link3 Technologies LTD</h3>
+        <span class="divider"></span>
+        <div class="profile">
+          <img src="images/link3.jpg" alt="" />
+        </div>
+        <span class="divider"></span>
+        <div><button class="logOut-btn" id="log-out" tabindex="0">Log Out</button></div>
+      </div>
+    </nav>
+    <main>
+      <div class="container">
+        <div class="dashboard-grid">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Current Power Generation</div>
+              <div class="card-icon icon-power"><i class="fas fa-bolt"></i></div>
+            </div>
+            <div class="card-value" id="current-power">12.4 kW</div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Today's Solar Energy</div>
+              <div class="card-icon icon-energy"><i class="fas fa-sun"></i></div>
+            </div>
+            <div class="card-value" id="today-energy">84.2 kWh</div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Carbon Emission Reduction</div>
+              <div class="card-icon icon-carbon"><i class="fas fa-leaf"></i></div>
+            </div>
+            <div class="card-value" id="carbon-reduction">1,265 kg</div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Today's Revenue</div>
+              <div class="card-icon icon-price"><i class="fas fa-money-bill-wave"></i></div>
+            </div>
+            <div class="card-value" id="today-revenue">1,684 ৳</div>
           </div>
         </div>
-        <div class="card-value" id="today-revenue">1,684 ৳</div>
-      </div>
-    </div>
 
-    <div class="card battery-container">
-      <div class="battery-header">
-        <div class="chart-title">
-          <i class="fas fa-car-battery"></i>48V LiFePO4 Battery System
-        </div>
-        <div class="battery-status" id="battery-status">
-        </div>
-      </div>
-      <div class="battery-widget">
-        <div class="battery-visual">
-          <div class="battery-level" id="battery-level-bar"></div>
-          <div class="battery-percentage" id="battery-percentage">85%</div>
-        </div>
-        <div class="battery-details">
-          <div class="battery-detail">
-            <div class="battery-detail-label">Voltage</div>
-            <div class="battery-detail-value" id="battery-voltage">51.2V</div>
+        <div class="card battery-container">
+          <div class="battery-header">
+            <div class="chart-title">
+              <i class="fas fa-car-battery"></i>48V LiFePO4 Battery System
+            </div>
+            <div class="battery-status" id="battery-status"></div>
           </div>
-          <div class="battery-detail">
-            <div class="battery-detail-label">Temperature</div>
-            <div class="battery-detail-value" id="battery-temp">28°C</div>
-          </div>
-          <div class="battery-detail">
-            <div class="battery-detail-label">Remaining Time</div>
-            <div class="battery-detail-value" id="battery-time">8.5h</div>
+          <div class="battery-widget">
+            <div class="battery-visual">
+              <div class="battery-level" id="battery-level-bar"></div>
+              <div class="battery-percentage" id="battery-percentage">85%</div>
+            </div>
+            <div class="battery-details">
+              <div class="battery-detail">
+                <div class="battery-detail-label">Voltage</div>
+                <div class="battery-detail-value" id="battery-voltage">51.2V</div>
+              </div>
+              <div class="battery-detail">
+                <div class="battery-detail-label">Temperature</div>
+                <div class="battery-detail-value" id="battery-temp">28°C</div>
+              </div>
+              <div class="battery-detail">
+                <div class="battery-detail-label">Remaining Time</div>
+                <div class="battery-detail-value" id="battery-time">8.5h</div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="card-trend">
-        <i class="fas fa-info-circle"></i><span>LiFePO4 batteries perform best between 20-80% charge</span>
-      </div>
-    </div>
 
-    <div class="charts-container">
-      <div class="chart-card">
-        <div class="chart-title">
-          <i class="fas fa-chart-line"></i>Power Generation (Last 24 Hours)
+        <div class="charts-container">
+          <div class="chart-card">
+            <div class="chart-title">
+              <i class="fas fa-chart-line"></i>Power Generation (Last 24 Hours)
+            </div>
+            <div class="chart-container">
+              <canvas id="powerChart"></canvas>
+            </div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-title">
+              <i class="fas fa-chart-pie"></i>Energy Distribution
+            </div>
+            <div class="chart-container">
+              <canvas id="energyChart"></canvas>
+            </div>
+          </div>
         </div>
-        <div class="chart-container"><canvas id="powerChart"></canvas></div>
-      </div>
-      <div class="chart-card">
-        <div class="chart-title"><i class="fas fa-chart-pie"></i>Energy Distribution</div>
-        <div class="chart-container"><canvas id="energyChart"></canvas></div>
-      </div>
-    </div>
 
-    <div class="bar-chart-container">
-      <div class="chart-title">
-        <i class="fas fa-chart-bar"></i>Monthly Energy & Financial Summary
+        <div class="bar-chart-container">
+          <div class="chart-title">
+            <i class="fas fa-chart-bar"></i>Monthly Energy & Financial Summary
+          </div>
+          <div class="chart-selector">
+            <button class="chart-btn active" onclick="changeChartType('energy')">Energy (kWh)</button>
+            <button class="chart-btn" onclick="changeChartType('revenue')">Revenue (৳)</button>
+            <button class="chart-btn" onclick="changeChartType('carbon')">Carbon Reduction (kg)</button>
+          </div>
+          <div class="chart-container">
+            <canvas id="monthlyBarChart"></canvas>
+          </div>
+        </div>
       </div>
-      <div class="chart-selector">
-        <button class="chart-btn active" onclick="changeChartType('energy')">Energy (kWh)</button>
-        <button class="chart-btn" onclick="changeChartType('revenue')">Revenue (৳)</button>
-        <button class="chart-btn" onclick="changeChartType('carbon')">
-          Carbon Reduction (kg)
-        </button>
-      </div>
-      <div class="chart-container">
-        <canvas id="monthlyBarChart"></canvas>
-      </div>
-    </div>
-
-    <div class="footer">
-      <p>Powered By Link 3 Technologies</p>
-    </div>
-  </div>
+    </main>
+  </section>
+  <footer>
+    <p>&copy; 2026 Link3 Technologies LTD. All rights reserved.</p>
+  </footer>
   <script src="script.js"></script>
 </body>
-
 </html>
