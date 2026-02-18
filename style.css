@@ -117,12 +117,13 @@ header {
     margin-bottom: 30px;
 }
 
+/* Updated: Removed hover effect from cards */
 .card {
     background-color: var(--card-bg);
     border-radius: 15px;
     padding: 20px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease;
+    /* Removed: transition: transform 0.3s ease; */
 }
 
 .card-header {
@@ -368,6 +369,7 @@ header {
 
 .chart-btn.active {
     background: var(--primary-color);
+    color: black;
 }
 
 .chart-btn:hover {

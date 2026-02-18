@@ -1,14 +1,29 @@
+// Power metrics: [current power, today's energy, carbon reduction, today's revenue]
 const powerMetricsData = [12.4, 84.2, 1265, 1684];
+
+// Battery data: [percentage, voltage, temperature, remaining time]
 const batteryData = [80, 51.2, 28, 8.5];
+
+// Hourly power generation data for last 24 hours
 const powerGenerationData = [0, 0, 0.2, 2.5, 6.8, 10.2, 12.4, 11.8, 9.5, 4.2, 1.1, 0.3];
+
+// Energy distribution percentages: [self consumption, grid feed-in, battery storage]
 const energyDistributionData = [65, 25, 10];
+
+// Monthly energy data for the year
 const monthlyEnergyData = [2250, 2450, 2780, 2620, 2850, 2410, 2310, 2680, 2740, 2590, 2420, 2280];
+
+// Monthly revenue data for the year
 const monthlyRevenueData = [45000, 49000, 55600, 52400, 57000, 48200, 46200, 53600, 54800, 51800, 48400, 45600];
+
+// Monthly carbon reduction data for the year
 const monthlyCarbonData = [1780, 1930, 2190, 2060, 2240, 1890, 1820, 2110, 2160, 2040, 1900, 1790];
 
+// Chart variables
 let powerChart, energyChart, monthlyBarChart;
 let currentChartType = 'energy';
 
+// Function to update power metrics display
 function updatePowerMetrics() {
     document.getElementById('current-power').textContent = `${powerMetricsData[0].toFixed(1)} kW`;
     document.getElementById('today-energy').textContent = `${powerMetricsData[1].toFixed(1)} kWh`;
@@ -16,6 +31,7 @@ function updatePowerMetrics() {
     document.getElementById('today-revenue').textContent = `${powerMetricsData[3].toLocaleString()} ৳`;
 }
 
+// Function to update battery data
 function updateBatteryData() {
     const batteryLevelBar = document.getElementById('battery-level-bar');
     const batteryPercentageEl = document.getElementById('battery-percentage');
@@ -59,6 +75,7 @@ function updateBatteryData() {
     }
 }
 
+// Function to initialize all charts
 function initializeCharts() {
     const powerCtx = document.getElementById('powerChart').getContext('2d');
     const energyCtx = document.getElementById('energyChart').getContext('2d');
@@ -67,6 +84,7 @@ function initializeCharts() {
     const hourLabels = ['12 AM', '2 AM', '4 AM', '6 AM', '8 AM', '10 AM', '12 PM', '2 PM', '4 PM', '6 PM', '8 PM', '10 PM'];
     const monthLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
+    // Power generation line chart
     powerChart = new Chart(powerCtx, {
         type: 'line',
         data: {
@@ -102,6 +120,7 @@ function initializeCharts() {
         }
     });
 
+    // Energy distribution doughnut chart
     energyChart = new Chart(energyCtx, {
         type: 'doughnut',
         data: {
@@ -125,6 +144,7 @@ function initializeCharts() {
         }
     });
 
+    // Monthly bar chart
     monthlyBarChart = new Chart(monthlyBarCtx, {
         type: 'bar',
         data: {
@@ -155,6 +175,7 @@ function initializeCharts() {
     });
 }
 
+// Function to change chart type for monthly data
 function changeChartType(type) {
     currentChartType = type;
 
@@ -187,6 +208,7 @@ function changeChartType(type) {
     monthlyBarChart.update();
 }
 
+// Function to update date and time display
 function updateDateTime() {
     const now = new Date();
     const formattedTime = now.toLocaleTimeString('en-US', {
@@ -205,26 +227,21 @@ function updateDateTime() {
     document.getElementById('last-updated').textContent = `${formattedDate} ${formattedTime}`;
 }
 
+// Function to update all dashboard sections
 function updateAllSections() {
     updateDateTime();
     updatePowerMetrics();
     updateBatteryData();
 }
 
+// Main initialization function
 function init() {
     initializeCharts();
     updateAllSections();
     setInterval(updateDateTime, 1000);
     setInterval(updateAllSections, 10000);
 
-    document.querySelectorAll('.card').forEach(card => {
-        card.addEventListener('click', function () {
-            this.style.transform = 'scale(0.98)';
-            setTimeout(() => {
-                this.style.transform = '';
-            }, 200);
-        });
-    });
+    // Removed click event listener for cards since hover effect is removed
 }
 
 document.addEventListener('DOMContentLoaded', init);
