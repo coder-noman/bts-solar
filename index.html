@@ -167,6 +167,17 @@
           </div>
         </div>
 
+        <!-- New Daily Energy Line Chart with Date Display -->
+        <div class="bar-chart-container">
+          <div class="chart-title" style="display: flex; justify-content: space-between; align-items: center;">
+            <span><i class="fas fa-chart-line"></i>Daily Energy Generation (Current Month)</span>
+            <span id="todayDateDisplay" style="font-size: 1rem; background: rgba(78, 205, 196, 0.2); padding: 5px 15px; border-radius: 20px; color: #4ecdc4;"></span>
+          </div>
+          <div class="chart-container">
+            <canvas id="dailyLineChart"></canvas>
+          </div>
+        </div>
+
         <div class="bar-chart-container">
           <div class="chart-title">
             <i class="fas fa-chart-bar"></i>Monthly Energy & Financial Summary
