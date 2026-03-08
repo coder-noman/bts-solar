@@ -514,6 +514,9 @@ main {
   border-color: #b2fff0;
   box-shadow: 0 0 20px #4ecdc4aa;
 }
+.color1:active { background-color: red; }
+.color2:active { background-color: darkgreen; }
+.color3:active { background-color: darkorange; }
 
 /* footer redesigned */
 footer {
@@ -592,4 +595,5 @@ footer {
   .card-value {
     font-size: 2.2rem;
   }
+
 }
