@@ -2,7 +2,6 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <!-- viewport meta already present, good -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       rel="stylesheet"
@@ -148,7 +147,7 @@
             </div>
           </div>
 
-          <!-- battery -->
+          <!-- battery (actual battery shape) -->
           <div class="card battery-container">
             <div class="battery-header">
               <div class="chart-title">
@@ -157,8 +156,15 @@
               <div class="battery-status" id="battery-status"></div>
             </div>
             <div class="battery-widget">
-              <div class="battery-visual">
-                <div class="battery-level" id="battery-level-bar"></div>
+              <!-- Actual battery shape container -->
+              <div class="battery-visual" id="actualBatteryShape">
+                <!-- Battery body (main cell) -->
+                <div class="battery-body">
+                  <div class="battery-level" id="battery-level-bar"></div>
+                </div>
+                <!-- Battery terminal (positive tip) -->
+                <div class="battery-terminal"></div>
+                <!-- Percentage inside the battery -->
                 <div class="battery-percentage" id="battery-percentage">
                   85%
                 </div>
@@ -254,6 +260,10 @@
         <p>&copy; 2026 Link3 Technologies LTD. All rights reserved.</p>
       </footer>
     </section>
+
+    <!-- overlay for mobile (original) -->
+    <div class="overlay" id="overlay"></div>
+
     <script src="script.js"></script>
   </body>
 </html>

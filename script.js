@@ -193,9 +193,7 @@ function updateCharts(
   }
 }
 // ---------------- Update Functions end ----------------
-
-// ---------------- device inforemation start -----------
-
+// ---------------- devive inforemation start ----------------
 function deviceInformation(lan, gsmOp, gsmSig, ib, psu1, psu2, ds) {
   console.log(lan, gsmOp, gsmSig, ib, psu1, psu2, ds);
   const lanIp = document.getElementById("device-lan");
@@ -234,7 +232,7 @@ function deviceInformation(lan, gsmOp, gsmSig, ib, psu1, psu2, ds) {
     dataSource.innerText = `: GPRS`;
   }
 }
-// ---------------- device inforemation end ----------------
+// ---------------- devive inforemation end ----------------
 
 // ---------------- Chart Initialization ----------------
 function initializeCharts() {
@@ -446,12 +444,40 @@ function updateDateTime() {
     });
 }
 
-function init() {
+// ----- SIDEBAR TOGGLE FIX (menu button) -----
+document.addEventListener('DOMContentLoaded', function() {
+  const menuToggle = document.getElementById('menuToggle');
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('overlay');
+
+  if (menuToggle) {
+    menuToggle.addEventListener('click', function(e) {
+      e.stopPropagation();
+      sidebar.classList.toggle('active');
+      if (overlay) overlay.classList.toggle('active');
+    });
+  }
+
+  if (overlay) {
+    overlay.addEventListener('click', function() {
+      sidebar.classList.remove('active');
+      overlay.classList.remove('active');
+    });
+  }
+
+  // close sidebar on window resize above 768px
+  window.addEventListener('resize', function() {
+    if (window.innerWidth >= 769) {
+      sidebar.classList.remove('active');
+      if (overlay) overlay.classList.remove('active');
+    }
+  });
+
+  // rest of init
   initializeCharts();
   updateTodayDateDisplay();
   updateDateTime();
   updatePowerMetrics();
   updateBatteryData();
   setInterval(updateDateTime, 1000);
-}
-document.addEventListener("DOMContentLoaded", init);
+});
