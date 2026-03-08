@@ -253,7 +253,7 @@ nav {
   gap: 20px;
   background: rgba(255, 255, 255, 0.03);
   padding: 8px 18px 8px 24px;
-  border-radius: 60px;
+  border-radius: 12px;
   border: 1px solid rgba(78, 205, 196, 0.2);
 }
 
@@ -276,7 +276,7 @@ nav {
   width: 44px;
   height: 44px;
   border-radius: 40px;
-  border: 2px solid #4ecdc4;
+  /* border: 2px solid #4ecdc4; */
   overflow: hidden;
 }
 .profile img {
@@ -286,9 +286,9 @@ nav {
 }
 
 .logOut-btn {
-  background: transparent;
+  background: #fc5c65;
   border: 1px solid #fc5c65;
-  color: #fc9ca3;
+  color: #0d1f2c;
   padding: 8px 22px;
   border-radius: 34px;
   font-weight: 600;
@@ -298,7 +298,7 @@ nav {
 }
 .logOut-btn:hover {
   background: #fc5c65;
-  color: #0d1f2c;
+    color: white;
 }
 
 /* main container */
@@ -511,12 +511,9 @@ main {
   background: #4ecdc4;
   color: #0b1a26;
   font-weight: 600;
-  border-color: #b2fff0;
-  box-shadow: 0 0 20px #4ecdc4aa;
+  /* border-color: #b2fff0; */
+  /* box-shadow: 0 0 20px #4ecdc4aa; */
 }
-.color1:active { background-color: red; }
-.color2:active { background-color: darkgreen; }
-.color3:active { background-color: darkorange; }
 
 /* footer redesigned */
 footer {

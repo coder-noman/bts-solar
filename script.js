@@ -142,19 +142,24 @@ function updateCharts(
     powerChart.data.datasets[0].data = powerData;
     powerChart.update();
   }
+
   if (energyChart) {
     energyChart.data.datasets[0].data = energyDistData;
     energyChart.update();
   }
+
   if (dailyLineChart) {
     dailyLineChart.data.datasets[0].data = dailyData;
     dailyLineChart.update();
   }
+
   if (monthlyBarChart) {
-    const type =
-      document.querySelector(".chart-btn.active")?.innerText.toLowerCase() ||
-      "energy";
+    const activeBtn =
+      document.querySelector(".chart-btn.active") ||
+      document.querySelector(".chart-btn");
+    const type = activeBtn?.innerText.toLowerCase() || "energy";
     let label, data, bg;
+
     if (type.includes("energy")) {
       label = "Energy (kWh)";
       data = monthlyEnergy;
@@ -168,10 +173,23 @@ function updateCharts(
       data = monthlyCarbon;
       bg = "#2196F3";
     }
+
     monthlyBarChart.data.datasets[0].label = label;
     monthlyBarChart.data.datasets[0].data = data;
     monthlyBarChart.data.datasets[0].backgroundColor = bg;
     monthlyBarChart.update();
+
+    // --- Update button colors dynamically ---
+    const buttons = document.querySelectorAll(".chart-btn");
+    buttons.forEach((b) => {
+      if (b === activeBtn) {
+        b.style.backgroundColor = bg;
+        b.style.color = "black";
+      } else {
+        b.style.backgroundColor = "#1c3a4c";
+        b.style.color = "white";
+      }
+    });
   }
 }
 // ---------------- Update Functions end ----------------
