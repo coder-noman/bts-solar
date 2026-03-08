@@ -322,8 +322,8 @@ function initializeCharts() {
     },
   });
 
-  const pointBg = Array(31).fill("#4ecdc4");
-  const pointBorder = Array(31).fill("#4ecdc4");
+  const pointBg = Array(31).fill("#2196f3");
+  const pointBorder = Array(31).fill("#2196f3");
   const pointR = Array(31).fill(4);
   if (todayDay >= 1 && todayDay <= 31) {
     pointBg[todayDay - 1] = "#FFC107";
@@ -339,7 +339,7 @@ function initializeCharts() {
         {
           label: "Daily Energy (kWh)",
           data: dailyEnergyData,
-          borderColor: "#4ecdc4",
+          borderColor: "#2196f3",
           backgroundColor: "rgba(78,205,196,0.1)",
           borderWidth: 3,
           fill: true,

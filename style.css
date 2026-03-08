@@ -169,13 +169,15 @@ a {
 
 .device-label {
   color: var(--green);
-  font-size: 12px;
+  font-size: 13px;
   flex: 1;
+  font-weight: 600;
 }
 
 .device-value {
-  font-size: 12px;
+  font-size: 13px;
   flex: 1;
+  font-weight: 600;
 }
 
 .device-btn-upgrade {
@@ -317,17 +319,17 @@ main {
   background: rgba(30, 45, 60, 0.6);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(78, 205, 196, 0.2);
-  border-radius: 36px;
+  /* border: 1px solid rgba(78, 205, 196, 0.2); */
+  border-radius: 17px;
   padding: 24px 26px;
   box-shadow: 0 25px 40px -20px #00000080;
   transition:
     transform 0.2s,
     border-color 0.2s;
 }
-.card:hover {
+/* .card:hover {
   border-color: #4ecdc4;
-}
+} */
 
 .card-header {
   display: flex;
@@ -369,8 +371,8 @@ main {
 .battery-container {
   background: rgba(30, 45, 60, 0.7);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(78, 205, 196, 0.25);
-  border-radius: 42px;
+  /* border: 1px solid rgba(78, 205, 196, 0.25); */
+  border-radius: 20px;
   padding: 28px 32px;
   margin-bottom: 40px;
 }
@@ -388,15 +390,15 @@ main {
   gap: 12px;
 }
 .chart-title i {
-  color: #4ecdc4;
+  color: #ffc107;
   font-size: 1.8rem;
 }
 .battery-status {
   width: 14px;
   height: 14px;
   border-radius: 14px;
-  background: #4ecdc4;
-  box-shadow: 0 0 16px #4ecdc4;
+  background: #4caf50;
+  box-shadow: 0 0 16px #4caf50;
 }
 .battery-widget {
   display: flex;
@@ -547,7 +549,7 @@ footer {
   border-radius: 40px;
   padding: 8px 20px;
   font-size: 1rem;
-  border: 1px solid #4ecdc4;
+  border: 1px solid #0c5fcd;
 }
 
 /* responsive adjustments (preserve sidebar on desktop) */
