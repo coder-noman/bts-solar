@@ -193,7 +193,9 @@ function updateCharts(
   }
 }
 // ---------------- Update Functions end ----------------
-// ---------------- devive inforemation start ----------------
+
+// ---------------- device inforemation start -----------
+
 function deviceInformation(lan, gsmOp, gsmSig, ib, psu1, psu2, ds) {
   console.log(lan, gsmOp, gsmSig, ib, psu1, psu2, ds);
   const lanIp = document.getElementById("device-lan");
@@ -232,7 +234,7 @@ function deviceInformation(lan, gsmOp, gsmSig, ib, psu1, psu2, ds) {
     dataSource.innerText = `: GPRS`;
   }
 }
-// ---------------- devive inforemation end ----------------
+// ---------------- device inforemation end ----------------
 
 // ---------------- Chart Initialization ----------------
 function initializeCharts() {
