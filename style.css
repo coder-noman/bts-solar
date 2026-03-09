@@ -353,6 +353,9 @@ main {
   background: rgba(78, 205, 196, 0.1);
   color: #4ecdc4;
 }
+.power{
+  color: var(--green);
+}
 .sun{
   color: var(--orange);
 }
@@ -528,7 +531,8 @@ main {
   transition: 0.2s;
 }
 .chart-btn.active {
-  background: #4ecdc4;
+  /* background: #4ecdc4; */
+  background: #ffc107c2;
   color: #0b1a26;
   font-weight: 600;
 }
@@ -614,6 +618,7 @@ footer {
   .battery-visual {
     min-width: 200px;
     height: 90px;
+    flex: unset;
   }
   .battery-percentage {
     font-size: 1.8rem;

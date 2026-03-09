@@ -7,23 +7,12 @@ let powerGenerationData = [
   0, 0, 0.2, 2.5, 6.8, 10.2, 12.4, 11.8, 9.5, 4.2, 1.1, 0.3,
 ];
 let energyDistributionData = [85, 25, 10];
-let monthlyEnergyData = [
-  28050, 2450, 2780, 2620, 2850, 2410, 2310, 2680, 2740, 2590, 2420, 2380,
-];
-let monthlyRevenueData = [
-  45000, 49000, 55600, 52400, 57000, 48200, 46200, 53600, 54800, 51800, 48400,
-  45600,
-];
-let monthlyCarbonData = [
-  1780, 1930, 2190, 2060, 2240, 1890, 1820, 2110, 2160, 2040, 1900, 1790,
-];
-let dailyEnergyData = [
-  65.2, 72.8, 68.4, 71.5, 69.3, 74.1, 70.6, 68.9, 73.2, 71.8, 67.5, 70.2, 72.4,
-  69.8, 71.1, 68.5, 70.9, 73.5, 71.3, 69.7, 72.1, 70.4, 68.2, 71.9, 73.8, 70.5,
-  69.1, 72.6, 0, 0, 0,
-];
+let monthlyEnergyData = [28050, 2450, 2780, 2620, 2850, 2410, 2310, 2680, 2740, 2590, 2420, 2380];
+let monthlyRevenueData = [45000, 49000, 55600, 52400, 57000, 48200, 46200, 53600, 54800, 51800, 48400,45600];
+let monthlyCarbonData = [1780, 1930, 2190, 2060, 2240, 1890, 1820, 2110, 2160, 2040, 1900, 1790];
+let dailyEnergyData = [65.2, 72.8, 68.4, 71.5, 69.3, 74.1, 70.6, 68.9, 73.2, 71.8, 67.5, 70.2, 72.4,69.8, 71.1, 68.5, 70.9, 73.5, 71.3, 69.7, 72.1, 70.4, 68.2, 71.9, 73.8, 70.5,
+  69.1, 72.6, 0, 0, 0,];
 const dayLabels = Array.from({ length: 31 }, (_, i) => `Day ${i + 1}`);
-
 const today = new Date();
 const todayDay = today.getDate();
 const monthNames = [
@@ -65,10 +54,12 @@ socket.onmessage = function (event) {
   batteryRemaining = d[6];
   powerGenerationData = d.slice(7, 19);
   energyDistributionData = d.slice(19, 22);
-  monthlyEnergyData = d.slice(22, 34);
-  monthlyRevenueData = d.slice(34, 46);
-  monthlyCarbonData = d.slice(46, 58);
-  dailyEnergyData = d.slice(58, 89);
+  dailyEnergyData = d.slice(22, 53);
+  monthlyEnergyData = d.slice(53, 65);
+  monthlyRevenueData = d.slice(65, 77);
+  monthlyCarbonData = d.slice(77, 89);
+
+  // bts_solar:19.4, 87.92, 1265, 1684,49,28,8.9,0, 0, 0.2, 2.5, 6.8, 10.2, 12.4, 11.8, 9.5, 4.2, 1.1, 0.3,85, 25, 10,65.2, 72.8, 68.4, 71.5, 69.3, 74.1, 70.6, 68.9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0, 0, 0, 0, 0, 0, 0,28050, 2450, 2780, 2620, 2850, 2410, 2310, 2680, 2740, 2590, 2420, 2380,45000, 49000, 55600, 52400, 57000, 48200, 46200, 53600, 54800, 51800, 48400,45600,1780, 1930, 2190, 2060, 2240, 1890, 1820, 2110, 2160, 2040, 1900, 1790,172.24.19.122,NUL,30,4.27,1,1,1
 
   // Update components
   updatePowerMetrics();
@@ -90,6 +81,7 @@ socket.onmessage = function (event) {
       d[94],
       d[95]
     );
+  updateDateTime() ;
 };
 // ---------------- WebSocket end ----------------
 
@@ -163,11 +155,12 @@ function updateCharts(
     if (type.includes("energy")) {
       label = "Energy (kWh)";
       data = monthlyEnergy;
-      bg = "#4ecdc4";
+      bg = "#ffc107c2";
+      
     } else if (type.includes("revenue")) {
       label = "Revenue (Tk)";
       data = monthlyRevenue;
-      bg = "#FFC107";
+      bg = "#4ecdc4";
     } else {
       label = "Carbon (kg)";
       data = monthlyCarbon;
@@ -385,7 +378,7 @@ function initializeCharts() {
         {
           label: "Energy (kWh)",
           data: monthlyEnergyData,
-          backgroundColor: "#4ecdc4",
+          backgroundColor: "#ffc107c2",
         },
       ],
     },
@@ -400,7 +393,7 @@ function initializeCharts() {
     },
   });
 }
-// ---------------- Chart Initialization end ----------------
+// ---------------- Chart Initialization end -------
 
 // ---------------- Other Functions ----------------
 function updateTodayDateDisplay() {
@@ -427,21 +420,11 @@ window.changeChartType = function (type) {
 };
 
 function updateDateTime() {
-  const now = new Date();
-  document.getElementById("lastUpdateTime").textContent =
-    now.toLocaleTimeString("en-US", {
-      hour12: true,
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-    });
-  document.getElementById("lastUpdateDate").textContent =
-    now.toLocaleDateString("en-US", {
-      weekday: "short",
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    });
+    let z = new Date().toLocaleTimeString();
+  let date = new Date().toLocaleDateString("en-GB");
+
+  document.getElementById("lastUpdateTime").textContent = z;
+  document.getElementById("lastUpdateDate").textContent = date;
 }
 
 // ----- SIDEBAR TOGGLE FIX (menu button) -----
@@ -473,11 +456,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // rest of init
   initializeCharts();
   updateTodayDateDisplay();
-  updateDateTime();
   updatePowerMetrics();
   updateBatteryData();
-  setInterval(updateDateTime, 1000);
 });
