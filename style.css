@@ -532,7 +532,7 @@ main {
 }
 .chart-btn.active {
   /* background: #4ecdc4; */
-  background: #ffc107c2;
+  background: #E68A00;
   color: #0b1a26;
   font-weight: 600;
 }
@@ -615,6 +615,20 @@ footer {
     font-size: 2.2rem;
   }
   /* ensure battery shape shrinks nicely */
+  nav{
+    padding: 0 10px;
+  }
+  .profile-box{
+    padding: 0;
+    gap: 5px;
+  }
+  .profile {
+  border-radius: 5px;
+}
+  .logOut-btn {
+    padding: 0px 14px;
+    border-radius: 0;
+  }
   .battery-visual {
     min-width: 200px;
     height: 90px;

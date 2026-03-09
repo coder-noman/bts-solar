@@ -7,12 +7,22 @@ let powerGenerationData = [
   0, 0, 0.2, 2.5, 6.8, 10.2, 12.4, 11.8, 9.5, 4.2, 1.1, 0.3,
 ];
 let energyDistributionData = [85, 25, 10];
-let monthlyEnergyData = [28050, 2450, 2780, 2620, 2850, 2410, 2310, 2680, 2740, 2590, 2420, 2380];
-let monthlyRevenueData = [45000, 49000, 55600, 52400, 57000, 48200, 46200, 53600, 54800, 51800, 48400,45600];
-let monthlyCarbonData = [1780, 1930, 2190, 2060, 2240, 1890, 1820, 2110, 2160, 2040, 1900, 1790];
-let dailyEnergyData = [65.2, 72.8, 68.4, 71.5, 69.3, 74.1, 70.6, 68.9, 73.2, 71.8, 67.5, 70.2, 72.4,69.8, 71.1, 68.5, 70.9, 73.5, 71.3, 69.7, 72.1, 70.4, 68.2, 71.9, 73.8, 70.5,
-  69.1, 72.6, 0, 0, 0,];
-const dayLabels = Array.from({ length: 31 }, (_, i) => `Day ${i + 1}`);
+let monthlyEnergyData = [
+  28050, 2450, 2780, 2620, 2850, 2410, 2310, 2680, 2740, 2590, 2420, 2380,
+];
+let monthlyRevenueData = [
+  45000, 49000, 55600, 52400, 57000, 48200, 46200, 53600, 54800, 51800, 48400,
+  45600,
+];
+let monthlyCarbonData = [
+  1780, 1930, 2190, 2060, 2240, 1890, 1820, 2110, 2160, 2040, 1900, 1790,
+];
+let dailyEnergyData = [
+  65.2, 72.8, 68.4, 71.5, 69.3, 74.1, 70.6, 68.9, 73.2, 71.8, 67.5, 70.2, 72.4,
+  69.8, 71.1, 68.5, 70.9, 73.5, 71.3, 69.7, 72.1, 70.4, 68.2, 71.9, 73.8, 70.5,
+  69.1, 72.6, 0, 0, 0,
+];
+const dayLabels = Array.from({ length: 31 }, (_, i) => `${i + 1}`);
 const today = new Date();
 const todayDay = today.getDate();
 const monthNames = [
@@ -41,7 +51,7 @@ socket.onmessage = function (event) {
   const [data_catagory, msg] = event.data.split(":");
   if (data_catagory != "bts_solar") return;
 
-   const d = msg.split(",").map((v) => {
+  const d = msg.split(",").map((v) => {
     const n = Number(v);
     return isNaN(n) ? v.trim() : n;
   });
@@ -61,6 +71,8 @@ socket.onmessage = function (event) {
 
   // bts_solar:19.4, 87.92, 1265, 1684,49,28,8.9,0, 0, 0.2, 2.5, 6.8, 10.2, 12.4, 11.8, 9.5, 4.2, 1.1, 0.3,85, 25, 10,65.2, 72.8, 68.4, 71.5, 69.3, 74.1, 70.6, 68.9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0, 0, 0, 0, 0, 0, 0,28050, 2450, 2780, 2620, 2850, 2410, 2310, 2680, 2740, 2590, 2420, 2380,45000, 49000, 55600, 52400, 57000, 48200, 46200, 53600, 54800, 51800, 48400,45600,1780, 1930, 2190, 2060, 2240, 1890, 1820, 2110, 2160, 2040, 1900, 1790,172.24.19.122,NUL,30,4.27,1,1,1
 
+  // bts_solar:[current power, today's energy, carbon reduction, today's revenue],[voltage, temperature, remaining time],[Hourly power generation data for last 24 hours.total 12 data],[self consumption, grid feed-in, battery storage],[Daily Energy Generation (Current Month).total 31 data],[Monthly energy data for the year.total 12 data],[Monthly revenue data for the year.Total 12 data],[Monthly carbon reduction data for the year.total 12 data],172.24.19.122,NUL,30,4.27,1,1,1
+
   // Update components
   updatePowerMetrics();
   updateBatteryData();
@@ -72,16 +84,8 @@ socket.onmessage = function (event) {
     monthlyRevenueData,
     monthlyCarbonData,
   );
-  deviceInformation(
-      d[89],
-      d[90],
-      d[91],
-      d[92],
-      d[93],
-      d[94],
-      d[95]
-    );
-  updateDateTime() ;
+  deviceInformation(d[89], d[90], d[91], d[92], d[93], d[94], d[95]);
+  updateDateTime();
 };
 // ---------------- WebSocket end ----------------
 
@@ -110,14 +114,15 @@ function updateBatteryData() {
   const tempEl = document.getElementById("battery-temp");
   const timeEl = document.getElementById("battery-time");
 
-  const percentage = getBatteryPercentage(batteryVoltage);
+  // const percentage = getBatteryPercentage(batteryVoltage);
+  const percentage = 39;
   bar.style.width = `${percentage}%`;
   percEl.textContent = `${percentage}%`;
   voltEl.textContent = `${batteryVoltage.toFixed(1)}V`;
   tempEl.textContent = `${batteryTemp}°C`;
   timeEl.textContent = `${batteryRemaining}h`;
-  if (percentage >= 80) bar.style.background = "#4ecdc4";
-  else if (percentage > 20) bar.style.background = "#ec9615";
+  if (percentage >= 70) bar.style.background = "#4ecdc4";
+  else if (percentage > 40) bar.style.background = "#ec9615";
   else bar.style.background = "#fc5c65";
 }
 
@@ -155,8 +160,7 @@ function updateCharts(
     if (type.includes("energy")) {
       label = "Energy (kWh)";
       data = monthlyEnergy;
-      bg = "#ffc107c2";
-      
+      bg = "#fa8500f3";
     } else if (type.includes("revenue")) {
       label = "Revenue (Tk)";
       data = monthlyRevenue;
@@ -378,7 +382,7 @@ function initializeCharts() {
         {
           label: "Energy (kWh)",
           data: monthlyEnergyData,
-          backgroundColor: "#ffc107c2",
+          backgroundColor: "#E68A00",
         },
       ],
     },
@@ -420,7 +424,7 @@ window.changeChartType = function (type) {
 };
 
 function updateDateTime() {
-    let z = new Date().toLocaleTimeString();
+  let z = new Date().toLocaleTimeString();
   let date = new Date().toLocaleDateString("en-GB");
 
   document.getElementById("lastUpdateTime").textContent = z;
@@ -428,31 +432,31 @@ function updateDateTime() {
 }
 
 // ----- SIDEBAR TOGGLE FIX (menu button) -----
-document.addEventListener('DOMContentLoaded', function() {
-  const menuToggle = document.getElementById('menuToggle');
-  const sidebar = document.getElementById('sidebar');
-  const overlay = document.getElementById('overlay');
+document.addEventListener("DOMContentLoaded", function () {
+  const menuToggle = document.getElementById("menuToggle");
+  const sidebar = document.getElementById("sidebar");
+  const overlay = document.getElementById("overlay");
 
   if (menuToggle) {
-    menuToggle.addEventListener('click', function(e) {
+    menuToggle.addEventListener("click", function (e) {
       e.stopPropagation();
-      sidebar.classList.toggle('active');
-      if (overlay) overlay.classList.toggle('active');
+      sidebar.classList.toggle("active");
+      if (overlay) overlay.classList.toggle("active");
     });
   }
 
   if (overlay) {
-    overlay.addEventListener('click', function() {
-      sidebar.classList.remove('active');
-      overlay.classList.remove('active');
+    overlay.addEventListener("click", function () {
+      sidebar.classList.remove("active");
+      overlay.classList.remove("active");
     });
   }
 
   // close sidebar on window resize above 768px
-  window.addEventListener('resize', function() {
+  window.addEventListener("resize", function () {
     if (window.innerWidth >= 769) {
-      sidebar.classList.remove('active');
-      if (overlay) overlay.classList.remove('active');
+      sidebar.classList.remove("active");
+      if (overlay) overlay.classList.remove("active");
     }
   });
 
