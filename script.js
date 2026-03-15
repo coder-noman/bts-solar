@@ -115,7 +115,7 @@ function updateBatteryData() {
   const timeEl = document.getElementById("battery-time");
 
   // const percentage = getBatteryPercentage(batteryVoltage);
-  const percentage = 39;
+  // const percentage = 39;
   bar.style.width = `${percentage}%`;
   percEl.textContent = `${percentage}%`;
   voltEl.textContent = `${batteryVoltage.toFixed(1)}V`;

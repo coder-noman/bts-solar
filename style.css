@@ -637,4 +637,8 @@ footer {
   .battery-percentage {
     font-size: 1.8rem;
   }
+  .chart-card, .bar-chart-container {
+    padding: 10px;
+    border-radius: 15px;
+  }
 }
